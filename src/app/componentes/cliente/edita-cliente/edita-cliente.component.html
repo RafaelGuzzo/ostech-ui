@@ -1,0 +1,111 @@
+<!-- Title group  -->
+<div class="title-group">
+    <h1 class="mat-h1">Editando Cliente {{nomeCliente}}</h1>
+    <mat-divider fxFlex="1 0"></mat-divider>
+</div>
+
+<!-- Form -->
+<div class="inner-wrapper">
+    <form [formGroup]="editaClienteForm" (ngSubmit)="submitEditaClienteForm()" #resetClienteForm="ngForm" novalidate>
+        <!-- Left block -->
+        <mat-card>
+            <div class="controlers-wrapper">
+                <input formControlName="clienteId" hidden>
+                <!-- Nome -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Nome" formControlName="nome">
+                    <mat-error *ngIf="handleError('nome', 'required')">
+                        Você deve fornecer um <strong>nome para o cliente</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Contato -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Contato" formControlName="contato">
+                    <mat-error *ngIf="handleError('contato', 'required')">
+                        Você deve fornecer um <strong>contato para o cliente</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Email -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email" formControlName="email">
+                </mat-form-field>
+
+                <!-- CPF -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="CPF" formControlName="cpf">
+                </mat-form-field>
+
+                <!-- Telefone -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Telefone" formControlName="telefone">
+                </mat-form-field>
+
+            </div>
+        </mat-card>
+
+        <!-- Right block -->
+        <mat-card formGroupName="endereco">
+            <div class="controlers-wrapper">
+                <!-- Rua -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Rua" formControlName="rua">
+                    <mat-error *ngIf="handleError('endereco.rua', 'required')">
+                        Você deve fornecer uma <strong>rua para o Endereço</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Bairro -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Bairro" formControlName="bairro">
+                    <mat-error *ngIf="handleError('endereco.bairro', 'required')">
+                        Você deve fornecer um <strong>bairro para o Endereço</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Numero -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Numero" formControlName="numero">
+                    <mat-error *ngIf="handleError('endereco.numero', 'required')">
+                        Você deve fornecer um <strong>numero para o Endereço</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Complemento -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Complemento" formControlName="complemento">
+                </mat-form-field>
+
+                <!-- CEP -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="CEP" formControlName="cep">
+                </mat-form-field>
+
+                <!-- Cidade -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Cidade" formControlName="cidade">
+                </mat-form-field>
+
+                <!-- UF -->
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="UF" formControlName="uf">
+                </mat-form-field>
+            </div>
+        </mat-card>
+
+        <!-- Submit & Reset -->
+        <mat-card>
+            <div class="full-wrapper button-wrapper">
+                <div class="button-wrapper">
+                    <button mat-flat-button type="submit" color="warn"
+                        [disabled]="editaClienteForm.invalid">Atualizar</button>
+                    <button mat-flat-button type="button" color="primary"
+                        [routerLink]="['/listar-ordens-servico/', clienteId]">Listar OS</button>
+                    <button mat-flat-button type="button" class="button-sucess"
+                        [routerLink]="['/adicionar-ordem-servico/', clienteId]">Cadastrar OS</button>
+                </div>
+            </div>
+        </mat-card>
+    </form>
+</div>

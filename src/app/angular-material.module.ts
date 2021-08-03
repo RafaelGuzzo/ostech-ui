@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { MatInputModule } from '@angular/material/input';
       MatRadioModule,
       MatDatepickerModule,
       MatChipsModule,
+      MatDialogModule,
       MatTooltipModule,
       MatTableModule,
       MatPaginatorModule
@@ -51,6 +53,7 @@ import { MatInputModule } from '@angular/material/input';
       MatSelectModule,
       MatRadioModule,
       MatDatepickerModule,
+      MatDialogModule,
       MatChipsModule,
       MatTooltipModule,
       MatTableModule,
@@ -58,7 +61,9 @@ import { MatInputModule } from '@angular/material/input';
    ],
    providers: [
       MatDatepickerModule,
-   ]
+   ],
+
+   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
 export class AngularMaterialModule { }

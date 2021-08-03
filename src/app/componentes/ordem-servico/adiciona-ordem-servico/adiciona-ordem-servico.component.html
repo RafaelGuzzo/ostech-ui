@@ -1,0 +1,69 @@
+<!-- Title group  -->
+<div class="title-group">
+  <h1 class="mat-h1">Nova Ordem de Serviço</h1>
+  <mat-divider fxFlex="1 0"></mat-divider>
+</div>
+
+<!-- Form -->
+<div class="full-wrapper">
+  <form [formGroup]="ordemServicoForm" (ngSubmit)="submitOrdemServicoForm()" novalidate>
+    <!-- Left block -->
+    <mat-card>
+      <div class="controlers-wrapper">
+
+        <input formControlName="clienteId" hidden>
+
+        <!-- Cliente -->
+        <mat-form-field class="example-full-width form-os-inline">
+          <input type="search" matInput placeholder="Cliente" #inputCliente formControlName="cliente">
+
+          <button mat-flat-button matSuffix type="button" (click)="buscaCLientePorNome(inputCliente.value)"
+            [disabled]="handleError('cliente', 'required')">
+            <mat-icon>search</mat-icon>
+          </button>
+
+          <mat-error *ngIf="handleError('cliente', 'required')">
+            Você deve fornecer um <strong>Cliente para a Ordem de Serviço</strong>
+          </mat-error>
+        </mat-form-field>
+
+
+        <!-- Equipamento -->
+        <mat-form-field class="example-full-width form-os-inline">
+          <input matInput placeholder="Equipamento" formControlName="equipamento">
+          <mat-error *ngIf="handleError('equipamento', 'required')">
+            Você deve fornecer um <strong>equipamento para a Ordem de Serviço</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Preco -->
+
+
+        <mat-form-field class="example-full-width form-os-inline-preco">
+          <input matInput placeholder="Preco" formControlName="preco">
+        </mat-form-field>
+
+
+        <!-- Descricao -->
+        <mat-form-field class="example-full-width">
+          <textarea rows="5" matInput placeholder="Descricao" formControlName="descricao"></textarea>
+          <mat-error *ngIf="handleError('descricao', 'required')">
+            Você deve fornecer uma <strong>descricao para a Ordem de Serviço</strong>
+          </mat-error>
+        </mat-form-field>
+
+
+      </div>
+    </mat-card>
+
+
+    <!-- Submit & Reset -->
+    <mat-card>
+      <div class="full-wrapper button-wrapper">
+        <div class="button-wrapper">
+          <button mat-flat-button color="warn" [disabled]="ordemServicoForm.invalid">Salvar</button>
+        </div>
+      </div>
+    </mat-card>
+  </form>
+</div>

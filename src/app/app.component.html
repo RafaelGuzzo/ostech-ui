@@ -11,14 +11,17 @@
   <mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true"
     [fixedTopGap]>
     <mat-nav-list>
-      <a mat-list-item routerLinkActive="active" routerLink="/adiciona-cliente">
+      <a mat-list-item routerLinkActive="active" routerLink="/adicionar-cliente">
         <mat-icon>add</mat-icon> Add Cliente
       </a>
-      <a mat-list-item routerLinkActive="active" routerLink="/ordem-servico">
+      <a mat-list-item routerLinkActive="active" routerLink="/adicionar-ordem-servico">
         <mat-icon>add</mat-icon> Add OS
       </a>
-      <a mat-list-item routerLinkActive="active" routerLink="/students-list">
-        <mat-icon>format_list_bulleted</mat-icon> View Students
+      <a mat-list-item routerLinkActive="active" routerLink="/listar-clientes">
+        <mat-icon>format_list_bulleted</mat-icon> Lista Clientes
+      </a>
+      <a mat-list-item routerLinkActive="active" routerLink="/listar-ordens-servico">
+        <mat-icon>format_list_bulleted</mat-icon> Lista OS
       </a>
     </mat-nav-list>
   </mat-sidenav>

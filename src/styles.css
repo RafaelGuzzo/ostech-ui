@@ -30,12 +30,13 @@ table.mat-table,table{width:100%;}
 .multiple-items{position:relative;}
 .multiple-items .tooltip-info{right:0;top:7px;cursor:pointer;color:#a1a7c7;position:absolute;font-size:20px;}
 body .push-right{margin-right:10px;}
+body .push-left{margin-left:10px;}
 .no-data{text-align:center;padding-top:30px;color:#6c75a9;}
 .button-wrapper{margin:20px 0 0 0;}
 
 .form-os-inline{display:inline-block;margin:0 1% 0 0;width:43%;}
 .form-os-inline-preco{display:inline-block;margin:0 1% 0 0;width:11%;}
-
+.button-sucess{background-color: rgb(3, 224, 3); color: #fff;}
 @media (max-width:1024px){.inner-wrapper mat-card{width:100%;}
  .mat-sidenav-content{padding:20px 20px 0;}
  .misc-bottom-padding mat-label{display:block;padding-bottom:10px;}

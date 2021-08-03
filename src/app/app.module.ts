@@ -1,37 +1,42 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { AdicionaClienteComponent } from './componentes/adiciona-cliente/adiciona-cliente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-import { AngularMaterialModule } from './angular-material.module';
-import { HttpClientModule } from '@angular/common/http';
-import { ClienteService } from './compartilhado/cliente.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OrdemServicoService } from './compartilhado/ordem-servico.service';
-import { AdicionaOrdemServicoComponent } from './componentes/adiciona-ordem-servico/adiciona-ordem-servico.component';
+
+
+import { OrdemServicoModule } from './componentes/ordem-servico/ordem-servico.module';
+import { ClienteModule } from './componentes/cliente/cliente.module';
+
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { ConfirmDialogComponent } from './componentes/confirm-dialog/confirm-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdicionaClienteComponent,
-    AdicionaOrdemServicoComponent
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    AngularMaterialModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule
+
+    MatButtonModule,
+    MatDialogModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+
+    OrdemServicoModule,
+    ClienteModule
   ],
-  providers: [
-    ClienteService,
-    OrdemServicoService
-  ],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

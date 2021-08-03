@@ -1,12 +1,11 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ClienteService } from '../../compartilhado/cliente.service';
 import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
+import { ClienteService } from '../cliente.service';
 
 @Component({
   selector: 'app-adiciona-cliente',
-  templateUrl: './adiciona-cliente.component.html',
-  styleUrls: ['./adiciona-cliente.component.css']
+  templateUrl: './adiciona-cliente.component.html'
 })
 export class AdicionaClienteComponent implements OnInit {
 
@@ -14,8 +13,6 @@ export class AdicionaClienteComponent implements OnInit {
 
   ngOnInit() {
     this.iniciaClienteForm();
-    console.log(this.clienteForm);
-
   }
 
   constructor(

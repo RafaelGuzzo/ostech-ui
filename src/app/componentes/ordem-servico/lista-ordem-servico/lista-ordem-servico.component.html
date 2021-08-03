@@ -1,0 +1,58 @@
+<!-- Title group  -->
+<div class="title-group">
+    <h1 class="mat-h1" *ngIf="clienteId; else elseBlock">Lista de Ordem de Serviço {{clienteId }} </h1>
+    <ng-template #elseBlock>
+        <h1 class="mat-h1">Lista de Ordem de Serviço</h1>
+    </ng-template>
+    <mat-divider fxFlex="1 0"></mat-divider>
+</div>
+
+<div class="container">
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Id </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="cliente">
+                <th mat-header-cell *matHeaderCellDef> Cliente </th>
+                <td mat-cell *matCellDef="let element"> {{element.cliente}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="contato">
+                <th mat-header-cell *matHeaderCellDef> Contato </th>
+                <td mat-cell *matCellDef="let element"> {{element.contato}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="equipamento">
+                <th mat-header-cell *matHeaderCellDef> Equipamento </th>
+                <td mat-cell *matCellDef="let element"> {{element.equipamento}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="dataAbertura">
+                <th mat-header-cell *matHeaderCellDef> Data Abertura </th>
+                <td mat-cell *matCellDef="let element"> {{element.dataAbertura}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acao">
+                <th mat-header-cell *matHeaderCellDef> Ação </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-raised-button color="primary" class="push-right"
+                        [routerLink]="['/editar-ordem-servico/', element.id]">Editar</button>
+
+                    <button mat-raised-button color="warn" (click)="removeOrdemServico(element)">Remover</button>
+
+                    <button mat-raised-button color="basic" class="push-left button-sucess">Imprimir OS</button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

@@ -6,7 +6,7 @@
 
 <!-- Form -->
 <div class="full-wrapper">
-  <form [formGroup]="ordemServicoForm" (ngSubmit)="submitOrdemServicoForm()" novalidate>
+  <form [formGroup]="editaOrdemServicoForm" (ngSubmit)="submitEditaOrdemServicoForm()" novalidate>
     <!-- Left block -->
     <mat-card>
       <div class="controlers-wrapper">
@@ -55,17 +55,9 @@
     <mat-card>
       <div class="full-wrapper button-wrapper">
         <div class="button-wrapper">
-          <button mat-flat-button color="warn">Submit</button>
+          <button mat-flat-button color="warn" [disabled]="editaOrdemServicoForm.invalid">Salvar</button>
         </div>
       </div>
     </mat-card>
   </form>
-
-  <mat-card>
-    <div class="full-wrapper button-wrapper">
-      <div class="button-wrapper">
-        <button mat-flat-button color="warn" (click)="imprime()">Imprimir</button>
-      </div>
-    </div>
-  </mat-card>
 </div>
