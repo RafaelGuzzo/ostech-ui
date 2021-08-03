@@ -37,6 +37,15 @@ export class AdicionaOrdemServicoComponent implements OnInit {
     })
   }
 
+  imprime(){
+    this.ordemServicoService.imprimeOrdemServico(1).subscribe(res => {
+      console.log(res);
+
+      const url = window.URL.createObjectURL(res);
+      window.open(url);
+    })
+  }
+
   /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
 

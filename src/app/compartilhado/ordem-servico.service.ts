@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Cliente } from './cliente';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 
 @Injectable({
@@ -30,7 +30,7 @@ export class OrdemServicoService {
   }
 
   // Get Cliente
-  GetCliente(id : Number): Observable<any> {
+  GetCliente(id: Number): Observable<any> {
     let API_URL = `${this.endpoint}/${id}`;
     return this.http.get(API_URL, { headers: this.headers })
       .pipe(
@@ -42,7 +42,7 @@ export class OrdemServicoService {
   }
 
   // Update Cliente
-  UpdateCliente(id : Number, data : Cliente): Observable<any> {
+  UpdateCliente(id: Number, data: Cliente): Observable<any> {
     let API_URL = `${this.endpoint}/${id}`;
     return this.http.put(API_URL, data, { headers: this.headers })
       .pipe(
@@ -51,7 +51,7 @@ export class OrdemServicoService {
   }
 
   // Delete Cliente
-  DeleteCliente(id : Number): Observable<any> {
+  DeleteCliente(id: Number): Observable<any> {
     var API_URL = `${this.endpoint}/${id}`;
     return this.http.delete(API_URL)
       .pipe(
@@ -59,7 +59,21 @@ export class OrdemServicoService {
       )
   }
 
-  // Error handling 
+  imprimeOrdemServico(id: Number): Observable<any> {
+    let API_URL = `${this.endpoint}/${id}/relatorio`;
+    let headers = new HttpHeaders();
+    headers.append("Accept", "application/pdf");
+
+    return this.http.get(API_URL, { headers: headers, responseType: 'blob' })
+      .pipe(
+        map((result) => {
+          return new Blob([result], { type: "application/pdf" });
+        }),
+        catchError(this.errorMgmt)
+      )
+  }
+
+  // Error handling
   errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
