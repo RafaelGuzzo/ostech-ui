@@ -1,56 +1,59 @@
 <!-- Title group  -->
 <div class="title-group">
-    <h1 class="mat-h1">Lista de Clientes</h1>
-    <mat-divider fxFlex="1 0"></mat-divider>
+  <h1 class="mat-h1">Lista de Clientes</h1>
+  <mat-divider fxFlex="1 0"></mat-divider>
 </div>
 
 <div class="container">
-    <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource">
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
 
-            <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef> Id </th>
-                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-            </ng-container>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
 
-            <ng-container matColumnDef="nome">
-                <th mat-header-cell *matHeaderCellDef> Nome </th>
-                <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
-            </ng-container>
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef> Nome </th>
+        <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+      </ng-container>
 
-            <ng-container matColumnDef="email">
-                <th mat-header-cell *matHeaderCellDef> Email </th>
-                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-            </ng-container>
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
 
-            <ng-container matColumnDef="contato">
-                <th mat-header-cell *matHeaderCellDef> Contato </th>
-                <td mat-cell *matCellDef="let element"> {{element.contato}} </td>
-            </ng-container>
+      <ng-container matColumnDef="contato">
+        <th mat-header-cell *matHeaderCellDef> Contato </th>
+        <td mat-cell *matCellDef="let element"> {{element.contato}} </td>
+      </ng-container>
 
-            <ng-container matColumnDef="telefone">
-                <th mat-header-cell *matHeaderCellDef> Telefone </th>
-                <td mat-cell *matCellDef="let element"> {{element.telefone}} </td>
-            </ng-container>
+      <ng-container matColumnDef="telefone">
+        <th mat-header-cell *matHeaderCellDef> Telefone </th>
+        <td mat-cell *matCellDef="let element"> {{element.telefone}} </td>
+      </ng-container>
 
-            <ng-container matColumnDef="acao">
-                <th mat-header-cell *matHeaderCellDef> Ação </th>
-                <td mat-cell *matCellDef="let element">
-                    <button mat-raised-button color="primary" class="push-right"
-                        [routerLink]="['/editar-cliente/', element.id]">Editar</button>
+      <ng-container matColumnDef="acao">
+        <th mat-header-cell *matHeaderCellDef> Ação </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="primary" class="push-right"
+            [routerLink]="['/editar-cliente/', element.id]">Editar</button>
 
-                    <button mat-raised-button color="warn" (click)="removeCliente(element)">Remover</button>
+          <button mat-raised-button color="warn" (click)="removeCliente(element)">Remover</button>
 
-                    <button mat-raised-button color="basic" style="background-color: rgb(3, 224, 3); color: #fff;"
-                        class="push-left" [routerLink]="['/listar-ordens-servico/', element.id]">Listar OS</button>
-                </td>
-            </ng-container>
+          <button mat-raised-button color="basic" class="button-sucess push-left"
+            [routerLink]="['/listar-ordens-servico/', element.id]">Listar OS</button>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <button mat-raised-button type="button" class="button-cinza push-left"
+            [routerLink]="['/adicionar-ordem-servico/', element.id]">Cadastrar OS</button>
+        </td>
+      </ng-container>
 
-        </table>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-    </div>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
 </div>

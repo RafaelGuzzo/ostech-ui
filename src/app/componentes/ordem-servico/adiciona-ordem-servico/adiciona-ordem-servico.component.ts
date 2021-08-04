@@ -50,12 +50,16 @@ export class AdicionaOrdemServicoComponent implements OnInit {
 
 
     const dialogRef = this.dialog.open(ModalListaClientesComponent, {
-      width: '250px',
-      data: {id: "string", nome: "string"}
+      data: { id: "string", nome: nomeCliente }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
+      if (result) {
+        this.ordemServicoForm.patchValue({
+          clienteId: result.id,
+          cliente: result.nome
+        })
+      }
     });
   }
 
