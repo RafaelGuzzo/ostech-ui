@@ -21,7 +21,6 @@ export class AdicionaClienteComponent implements OnInit {
     private clienteApi: ClienteService
   ) { }
 
-  /* Reactive book form */
   iniciaClienteForm() {
     this.clienteForm = this.fb.group({
       nome: ['', [Validators.required]],
@@ -41,21 +40,14 @@ export class AdicionaClienteComponent implements OnInit {
     })
   }
 
-  /* Get errors */
   public handleError = (controlName: string, errorName: string) => {
-       
     return this.clienteForm.get(controlName)?.hasError(errorName);
-    //return this.clienteForm.controls[controlName].hasError(errorName);
   }
 
-  /* Submit book */
   submitClienteForm() {
     if (this.clienteForm.valid) {
-      console.log(this.clienteForm.value);
-
       this.clienteApi.AddCliente(this.clienteForm.value).subscribe(res => {
-        console.log(res);
-
+        this.router.navigateByUrl(`/editar-cliente/${res.id}`)
       });
     }
   }

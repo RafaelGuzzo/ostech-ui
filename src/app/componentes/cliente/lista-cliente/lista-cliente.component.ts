@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { ClienteService } from './../cliente.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
-const ELEMENT_DATA: any[] = [
-  { id: 1, nome: 'Rafael', email: "teste@teste", contato: 'teste', telefone: "teste" },
-  { id: 1, nome: 'Rafael', email: "teste@teste", contato: 'teste', telefone: "teste" },
-  { id: 1, nome: 'Rafael', email: "teste@teste", contato: 'teste', telefone: "teste" },
-  { id: 1, nome: 'Rafael', email: "teste@teste", contato: 'teste', telefone: "teste" },
-  { id: 1, nome: 'Rafael', email: "teste@teste", contato: 'teste', telefone: "teste" },
-
-];
+export interface ClienteList {
+  id: string,
+  nome: string,
+  email: string,
+  contato: string,
+  telefone: string,
+}
 
 @Component({
   selector: 'app-lista-cliente',
@@ -19,14 +21,29 @@ const ELEMENT_DATA: any[] = [
 export class ListaClienteComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'nome', 'email', 'contato', 'telefone', 'acao'];
-  dataSource = ELEMENT_DATA;
+  dataSource: MatTableDataSource<ClienteList>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    private clienteService: ClienteService
+  ) { }
 
   ngOnInit(): void {
+    this.listaTodosClientes();
   }
 
-  removeCliente(cliente: any) {
+  listaTodosClientes() {
+    this.clienteService.GetClientes().subscribe(result => {
+      var clientes = this.converteResponse(result);
+      this.dataSource = new MatTableDataSource<ClienteList>(clientes);
+      this.dataSource.paginator = this.paginator;
+    });
+  }
+
+
+
+  removeCliente(index: number, cliente: any) {
     const confirmDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Confirmar remoção de cliente',
@@ -35,9 +52,29 @@ export class ListaClienteComponent implements OnInit {
     });
 
     confirmDialog.afterClosed().subscribe(result => {
-      console.log(result);
+      if (result) {
+        console.log(cliente);
 
+        const data = this.dataSource.data;
+        data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
+        this.dataSource.data = data;
+        this.clienteService.DeleteCliente(cliente.id).subscribe();
+      }
     })
+  }
+
+  private converteResponse(response: any) {
+    return response.map((resp: any) => {
+      var clienteList: ClienteList = {
+        id: resp.clienteId,
+        nome: resp.nome,
+        email: resp.email,
+        contato: resp.contato,
+        telefone: resp.telefone,
+      }
+
+      return clienteList;
+    });
   }
 
 }

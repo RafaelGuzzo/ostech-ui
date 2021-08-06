@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'listar-clientes' },
   { path: 'adicionar-cliente',pathMatch: 'full', component: AdicionaClienteComponent },
   { path: 'listar-clientes',component: ListaClienteComponent },
-  { path: 'editar-cliente/:clienteId', component: EditaClienteComponent },
+  { path: 'editar-cliente/:clienteId', pathMatch: 'full',component: EditaClienteComponent },
   { path: 'adicionar-ordem-servico',pathMatch: 'full', component: AdicionaOrdemServicoComponent },
   { path: 'adicionar-ordem-servico/:clienteId',pathMatch: 'full', component: AdicionaOrdemServicoComponent },
   { path: 'listar-ordens-servico',component: ListaOrdemServicoComponent },

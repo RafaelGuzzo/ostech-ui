@@ -37,6 +37,7 @@ body .push-left{margin-left:10px;}
 .form-os-inline{display:inline-block;margin:0 1% 0 0;width:43%;}
 .form-os-inline-preco{display:inline-block;margin:0 1% 0 0;width:11%;}
 .button-sucess{background-color: rgb(3, 224, 3); color: #fff;}
+.button-warn{background-color: rgb(255, 195, 64); color: #fff;}
 .button-cinza{background-color: gray; color: #fff;}
 .linha-selecionada{font-weight: bold;}
 @media (max-width:1024px){.inner-wrapper mat-card{width:100%;}

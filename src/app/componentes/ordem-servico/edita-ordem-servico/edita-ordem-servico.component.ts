@@ -10,7 +10,7 @@ import { OrdemServicoService } from 'src/app/componentes/ordem-servico/ordem-ser
 export class EditaOrdemServicoComponent {
 
   editaOrdemServicoForm: FormGroup;
-  ordemId?: String;
+  ordemId?: string;
 
   constructor(
     public fb: FormBuilder,
@@ -19,40 +19,47 @@ export class EditaOrdemServicoComponent {
     private actRoute: ActivatedRoute,
   ) {
     this.ordemId = this.actRoute.snapshot.paramMap.get('ordemId')!;
-    this.iniciaEditaOrdemSevicoForm(this.ordemId)
+    this.iniciaEditaOrdemSevicoForm();
+    this.getOrdemServico();
   }
 
-
-  iniciaEditaOrdemSevicoForm(ordemId: String) {
-    //TODO: busca ordem servico pelo id e insere no form
+  iniciaEditaOrdemSevicoForm() {
     this.editaOrdemServicoForm = this.fb.group({
-      clienteId: ['1', [Validators.required]],
-      cliente: ['Seu Ze', [Validators.required]],
-      equipamento: ['celular tal', [Validators.required]],
-      descricao: ['parou de funcionar', [Validators.required]],
-      preco: [''],
-    })
+      clienteId: [null, [Validators.required]],
+      cliente: [null, [Validators.required]],
+      equipamento: [null, [Validators.required]],
+      descricao: [null, [Validators.required]],
+      preco: [null],
+    });
+  }
 
+  getOrdemServico() {
+    this.ordemServicoService.GetOrdemServico(Number(this.ordemId)).subscribe(res => {
+      this.editaOrdemServicoForm.patchValue({
+        clienteId: res.cliente.clienteId,
+        cliente: res.cliente.nome,
+        equipamento: res.equipamento,
+        descricao: res.descricao,
+        preco: res.preco,
+      });
+    });
   }
 
   submitEditaOrdemServicoForm() {
-    console.log(this.editaOrdemServicoForm);
-
+    this.ordemServicoService.UpdateOrdemServico(Number(this.ordemId), this.editaOrdemServicoForm.value).subscribe(res => {
+      //TODO: trocar por toasty
+      window.alert(`ordem de serviço numero: ${res.id} atualizado com sucesso!`);
+    });
   }
 
-
-  imprime(id: Number) {
-    this.ordemServicoService.imprimeOrdemServico(1).subscribe(res => {
+  imprime() {
+    this.ordemServicoService.imprimeOrdemServico(Number(this.ordemId)).subscribe(res => {
       const url = window.URL.createObjectURL(res);
       window.open(url);
     })
   }
 
   public handleError = (controlName: string, errorName: string) => {
-
     return this.editaOrdemServicoForm.get(controlName)?.hasError(errorName);
   }
-
-
-
 }

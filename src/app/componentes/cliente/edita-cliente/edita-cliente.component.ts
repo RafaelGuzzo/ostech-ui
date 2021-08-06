@@ -1,3 +1,4 @@
+import { Cliente } from './../cliente';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
@@ -7,7 +8,7 @@ import { ClienteService } from '../cliente.service';
   selector: 'app-edita-cliente',
   templateUrl: './edita-cliente.component.html'
 })
-export class EditaClienteComponent {
+export class EditaClienteComponent implements OnInit {
   nomeCliente: String;
   editaClienteForm: FormGroup;
   clienteId?: String;
@@ -19,24 +20,32 @@ export class EditaClienteComponent {
     private actRoute: ActivatedRoute,
   ) {
     this.clienteId = this.actRoute.snapshot.paramMap.get('clienteId')!;
-    this.iniciaEditaClienteForm(this.clienteId)
-    this.nomeCliente = "Um nome"
-
+    this.iniciaEditaClienteForm();
+  }
+  ngOnInit(): void {
+    if (this.clienteId) {
+      this.buscaClientePorId()
+    }
   }
 
-  iniciaEditaClienteForm(clienteId: String) {
-    //TODO: busca cliente no banco pelo id e insere no form
+  buscaClientePorId() {
+    this.clienteApi.GetCliente(Number(this.clienteId!)).subscribe(res => {
+      this.editaClienteForm.patchValue(res);
+    });
+  }
+
+  iniciaEditaClienteForm() {
     this.editaClienteForm = this.fb.group({
-      clienteId: [1],
-      nome: ['Teste', [Validators.required]],
-      contato: ['teste', [Validators.required]],
+      clienteId: [null, [Validators.required]],
+      nome: [null, [Validators.required]],
+      contato: [null, [Validators.required]],
       email: [''],
       cpf: [''],
       telefone: [''],
       endereco: this.fb.group({
-        rua: ['ttttt', [Validators.required]],
-        bairro: ['tt', [Validators.required]],
-        numero: ['asssa', [Validators.required]],
+        rua: [null, [Validators.required]],
+        bairro: [null, [Validators.required]],
+        numero: [null, [Validators.required]],
         complemento: [''],
         cep: [''],
         cidade: [''],
@@ -45,13 +54,15 @@ export class EditaClienteComponent {
     })
   }
 
-
   public handleError = (controlName: string, errorName: string) => {
     return this.editaClienteForm.get(controlName)?.hasError(errorName);
   }
 
   submitEditaClienteForm() {
-    console.log(this.editaClienteForm);
+    this.clienteApi.UpdateCliente(Number(this.clienteId!), this.editaClienteForm.value).subscribe(res => {
+      //TODO: trocar por toasty
+      window.alert(`cliente ${res.nome} atualizado com sucesso!`);
+    });
   }
 
 }

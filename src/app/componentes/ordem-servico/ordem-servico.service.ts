@@ -1,5 +1,5 @@
+import { OrdemServico } from './ordem-servico';
 import { Injectable } from '@angular/core';
-import { Cliente } from '../cliente/cliente';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http';
@@ -17,20 +17,22 @@ export class OrdemServicoService {
   constructor(private http: HttpClient) { }
 
   // Add Cliente
-  AddCliente(data: Cliente): Observable<any> {
+  AddOrdemServico(data: OrdemServico): Observable<any> {
     return this.http.post(`${this.endpoint}`, data)
       .pipe(
         catchError(this.errorMgmt)
       )
   }
 
-  // Get all Clientes
-  GetClientes() {
+  GetAllOrdensServicoByClienteId(clienteId: string) {
+    return this.http.get(`${this.endpoint}/${clienteId}/cliente`);
+  }
+
+  GetAllOrdensServico() {
     return this.http.get(`${this.endpoint}`);
   }
 
-  // Get Cliente
-  GetCliente(id: Number): Observable<any> {
+  GetOrdemServico(id: Number): Observable<any> {
     let API_URL = `${this.endpoint}/${id}`;
     return this.http.get(API_URL, { headers: this.headers })
       .pipe(
@@ -42,7 +44,7 @@ export class OrdemServicoService {
   }
 
   // Update Cliente
-  UpdateCliente(id: Number, data: Cliente): Observable<any> {
+  UpdateOrdemServico(id: Number, data: OrdemServico): Observable<any> {
     let API_URL = `${this.endpoint}/${id}`;
     return this.http.put(API_URL, data, { headers: this.headers })
       .pipe(
@@ -51,7 +53,7 @@ export class OrdemServicoService {
   }
 
   // Delete Cliente
-  DeleteCliente(id: Number): Observable<any> {
+  DeleteOrdemServico(id: Number): Observable<any> {
     var API_URL = `${this.endpoint}/${id}`;
     return this.http.delete(API_URL)
       .pipe(

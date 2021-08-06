@@ -1,3 +1,4 @@
+import { ClienteService } from './../../cliente/cliente.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
@@ -20,6 +21,7 @@ export class AdicionaOrdemServicoComponent implements OnInit {
     public fb: FormBuilder,
     private router: Router,
     private ordemServicoService: OrdemServicoService,
+    private clienteService: ClienteService,
     private actRoute: ActivatedRoute,
     public dialog: MatDialog
   ) {
@@ -44,19 +46,21 @@ export class AdicionaOrdemServicoComponent implements OnInit {
     })
   }
 
-  buscaCLientePorNome(nomeCliente: String) {
-    //TODO: faz busca por nome cliente like e abre um modal com as opções aquele que for clicado deve popular o id e o nome
-    console.log(nomeCliente);
+  buscaCLientePorNome(nomeCliente: string) {
+    this.clienteService.GetClienteByNomeLike(nomeCliente).subscribe(res => {
+      this.abreDialogClientes(res, nomeCliente);
+    });
+  }
 
-
+  abreDialogClientes(clientes: any, nomeCliente: String) {
     const dialogRef = this.dialog.open(ModalListaClientesComponent, {
-      data: { id: "string", nome: nomeCliente }
+      data: { nome: nomeCliente, clientes: clientes }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.ordemServicoForm.patchValue({
-          clienteId: result.id,
+          clienteId: result.clienteId,
           cliente: result.nome
         })
       }
@@ -64,11 +68,13 @@ export class AdicionaOrdemServicoComponent implements OnInit {
   }
 
   buscaClientePorId(clienteId: String) {
-    //TODO: faz a busca de cliente e insere no formulario
-    this.ordemServicoForm.patchValue({
-      clienteId: clienteId,
-      cliente: "Seu Geronimo"
-    })
+    this.clienteService.GetCliente(Number(clienteId)).subscribe(res => {
+      this.ordemServicoForm.patchValue({
+        clienteId: res.clienteId,
+        cliente: res.nome
+      });
+    });
+
   }
 
   public handleError = (controlName: string, errorName: string) => {
@@ -76,15 +82,11 @@ export class AdicionaOrdemServicoComponent implements OnInit {
   }
 
   submitOrdemServicoForm() {
-    /*
     if (this.ordemServicoForm.valid) {
-      console.log(this.ordemServicoForm.value);
-
-      this.clienteApi.AddCliente(this.ordemServicoForm.value).subscribe(res => {
-        console.log(res);
-
+      this.ordemServicoService.AddOrdemServico(this.ordemServicoForm.value).subscribe(res => {
+        this.router.navigateByUrl(`/editar-ordem-servico/${res.id}`);
       });
     }
-  */}
+  }
 
 }

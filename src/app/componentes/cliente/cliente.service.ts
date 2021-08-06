@@ -11,7 +11,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 
 export class ClienteService {
 
-  endpoint: string = 'http://localhost:8080/api/v1/clientes/';
+  endpoint: string = 'http://localhost:8080/api/v1/clientes';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
@@ -41,6 +41,17 @@ export class ClienteService {
       )
   }
 
+  GetClienteByNomeLike(nome: String){
+    let API_URL = `${this.endpoint}?nome=${nome}`;
+    return this.http.get(API_URL, { headers: this.headers })
+      .pipe(
+        map(res => {
+          return res || {}
+        }),
+        catchError(this.errorMgmt)
+      )
+  }
+
   // Update Cliente
   UpdateCliente(id : Number, data : Cliente): Observable<any> {
     let API_URL = `${this.endpoint}/${id}`;
@@ -59,7 +70,7 @@ export class ClienteService {
       )
   }
 
-  // Error handling 
+  // Error handling
   errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
