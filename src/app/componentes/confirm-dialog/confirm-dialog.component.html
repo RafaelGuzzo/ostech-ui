@@ -2,6 +2,7 @@
 <div mat-dialog-content>
     {{data.message}}
 </div>
+<p style="font-size: 12px;" *ngIf="data.obs">{{data.obs}}</p>
 <div style="float:right;margin:20px;">
     <button mat-raised-button color="warn" class="push-right" [mat-dialog-close]="true">Confirmar</button>
     <button mat-raised-button color="primary" [mat-dialog-close]="false">Cancelar</button>

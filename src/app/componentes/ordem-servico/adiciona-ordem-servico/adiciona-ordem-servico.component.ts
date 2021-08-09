@@ -6,6 +6,7 @@ import { OrdemServicoService } from 'src/app/componentes/ordem-servico/ordem-ser
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { ModalListaClientesComponent } from '../../cliente/modal-lista-clientes/modal-lista-clientes.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-adiciona-ordem-servico',
@@ -23,7 +24,8 @@ export class AdicionaOrdemServicoComponent implements OnInit {
     private ordemServicoService: OrdemServicoService,
     private clienteService: ClienteService,
     private actRoute: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
     this.clienteId = this.actRoute.snapshot.paramMap.get('clienteId')!;
   }
@@ -84,6 +86,10 @@ export class AdicionaOrdemServicoComponent implements OnInit {
   submitOrdemServicoForm() {
     if (this.ordemServicoForm.valid) {
       this.ordemServicoService.AddOrdemServico(this.ordemServicoForm.value).subscribe(res => {
+        this.snackBar.open("Ordem de Serviço cadastrada com sucesso!", "", {
+          duration: 4000,
+          verticalPosition: "top"
+        });
         this.router.navigateByUrl(`/editar-ordem-servico/${res.id}`);
       });
     }

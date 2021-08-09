@@ -47,7 +47,8 @@ export class ListaClienteComponent implements OnInit {
     const confirmDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Confirmar remoção de cliente',
-        message: 'Tem certeza de que deseja remover o cliente: ' + cliente.nome
+        message: 'Tem certeza de que deseja remover o cliente: ' + cliente.nome,
+        obs: ' Obs: tambem será removido as Ordens de Serviço relacionadas ao cliente!'
       }
     });
 

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
 import { ClienteService } from '../cliente.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edita-cliente',
@@ -18,6 +19,7 @@ export class EditaClienteComponent implements OnInit {
     private router: Router,
     private clienteApi: ClienteService,
     private actRoute: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
     this.clienteId = this.actRoute.snapshot.paramMap.get('clienteId')!;
     this.iniciaEditaClienteForm();
@@ -60,8 +62,10 @@ export class EditaClienteComponent implements OnInit {
 
   submitEditaClienteForm() {
     this.clienteApi.UpdateCliente(Number(this.clienteId!), this.editaClienteForm.value).subscribe(res => {
-      //TODO: trocar por toasty
-      window.alert(`cliente ${res.nome} atualizado com sucesso!`);
+      this.snackBar.open("Cliente atualizado com sucesso!", "", {
+        duration: 3000,
+        verticalPosition: "top"
+      });
     });
   }
 

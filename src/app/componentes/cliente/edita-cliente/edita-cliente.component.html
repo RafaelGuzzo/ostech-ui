@@ -21,7 +21,7 @@
 
                 <!-- Contato -->
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Contato" formControlName="contato">
+                    <input matInput placeholder="Contato" formControlName="contato" mask="(00) 0000-0000||(00) 0 0000-0000">
                     <mat-error *ngIf="handleError('contato', 'required')">
                         Você deve fornecer um <strong>contato para o cliente</strong>
                     </mat-error>
@@ -29,17 +29,17 @@
 
                 <!-- Email -->
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email" formControlName="email">
+                    <input matInput placeholder="Email" type="email" formControlName="email">
                 </mat-form-field>
 
                 <!-- CPF -->
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="CPF" formControlName="cpf">
+                    <input matInput placeholder="CPF" formControlName="cpf" mask="CPF_CNPJ">
                 </mat-form-field>
 
                 <!-- Telefone -->
                 <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Telefone" formControlName="telefone">
+                    <input matInput placeholder="Telefone" formControlName="telefone"  mask="(00) 0000-0000||(00) 0 0000-0000">
                 </mat-form-field>
 
             </div>

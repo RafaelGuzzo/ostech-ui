@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
 import { ClienteService } from '../cliente.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-adiciona-cliente',
@@ -18,7 +19,8 @@ export class AdicionaClienteComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     private router: Router,
-    private clienteApi: ClienteService
+    private clienteApi: ClienteService,
+    private snackBar: MatSnackBar
   ) { }
 
   iniciaClienteForm() {
@@ -47,6 +49,10 @@ export class AdicionaClienteComponent implements OnInit {
   submitClienteForm() {
     if (this.clienteForm.valid) {
       this.clienteApi.AddCliente(this.clienteForm.value).subscribe(res => {
+        this.snackBar.open("Cliente cadastrado com sucesso!", "", {
+          duration: 4000,
+          verticalPosition: "top"
+        });
         this.router.navigateByUrl(`/editar-cliente/${res.id}`)
       });
     }

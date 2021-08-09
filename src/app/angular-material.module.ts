@@ -17,6 +17,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { MatDialogModule } from '@angular/material/dialog';
       MatDialogModule,
       MatTooltipModule,
       MatTableModule,
-      MatPaginatorModule
+      MatPaginatorModule,
+      MatSnackBarModule
    ],
    exports: [
       MatButtonModule,
@@ -57,7 +60,8 @@ import { MatDialogModule } from '@angular/material/dialog';
       MatChipsModule,
       MatTooltipModule,
       MatTableModule,
-      MatPaginatorModule
+      MatPaginatorModule,
+      MatSnackBarModule
    ],
    providers: [
       MatDatepickerModule,

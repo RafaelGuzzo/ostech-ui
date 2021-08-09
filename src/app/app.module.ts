@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NgxMaskModule } from 'ngx-mask'
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -26,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    NgxMaskModule.forRoot(),
 
     MatButtonModule,
     MatDialogModule,

@@ -10,6 +10,7 @@ import { EditaClienteComponent } from './edita-cliente/edita-cliente.component';
 import { ListaClienteComponent } from './lista-cliente/lista-cliente.component';
 import { RouterModule } from '@angular/router';
 import { ModalListaClientesComponent } from './modal-lista-clientes/modal-lista-clientes.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 
@@ -24,6 +25,7 @@ import { ModalListaClientesComponent } from './modal-lista-clientes/modal-lista-
   imports: [
     CommonModule,
     RouterModule,
+    NgxMaskModule.forRoot(),
 
     HttpClientModule,
     ReactiveFormsModule,

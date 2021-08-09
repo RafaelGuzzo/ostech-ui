@@ -2,6 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from "@angular/forms";
 import { OrdemServicoService } from 'src/app/componentes/ordem-servico/ordem-servico.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edita-ordem-servico',
@@ -17,6 +18,7 @@ export class EditaOrdemServicoComponent {
     private router: Router,
     private ordemServicoService: OrdemServicoService,
     private actRoute: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
     this.ordemId = this.actRoute.snapshot.paramMap.get('ordemId')!;
     this.iniciaEditaOrdemSevicoForm();
@@ -47,8 +49,10 @@ export class EditaOrdemServicoComponent {
 
   submitEditaOrdemServicoForm() {
     this.ordemServicoService.UpdateOrdemServico(Number(this.ordemId), this.editaOrdemServicoForm.value).subscribe(res => {
-      //TODO: trocar por toasty
-      window.alert(`ordem de serviço numero: ${res.id} atualizado com sucesso!`);
+      this.snackBar.open("Ordem de Serviço atualizada com sucesso!", "", {
+        duration: 4000,
+        verticalPosition: "top"
+      });
     });
   }
 
